@@ -8,12 +8,14 @@ app.use(bodyParser.json());
 
 const CLIENT_ID = "22aeddbe-a202-4277-a6ea-0fcebff5266c";
 const CLIENT_SECRET = "dmu5h7rj3e";
-const REDIRECT_URI = "https://myapp-backend-lyx2.onrender.com/callback?code=test123";
+const REDIRECT_URI = "https://myapp-backend-lyx2.onrender.com/callback";
 app.get("/", (req, res) => {
+  
   res.send("Backend is working 🚀");
 });
 
 app.get("/callback", async (req, res) => {
+  console.log("Callback endpoint hit",req);
   console.log("Callback hit");
   console.log("Query:", req.query);
 
