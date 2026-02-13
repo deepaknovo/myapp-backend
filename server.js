@@ -8,7 +8,10 @@ app.use(bodyParser.json());
 
 const CLIENT_ID = "22aeddbe-a202-4277-a6ea-0fcebff5266c";
 const CLIENT_SECRET = "dmu5h7rj3e";
-const REDIRECT_URI = "https://myapp-backend-lyx2.onrender.com/callback";
+const REDIRECT_URI = "https://myapp-backend-lyx2.onrender.com/callback?code=test123";
+app.get("/", (req, res) => {
+  res.send("Backend is working 🚀");
+});
 
 app.get("/callback", async (req, res) => {
   console.log("Callback hit");
@@ -66,4 +69,6 @@ app.get("/callback", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Server running"));
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server running");
+});
