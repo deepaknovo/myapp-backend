@@ -11,7 +11,16 @@ const CLIENT_SECRET = "dmu5h7rj3e";
 const REDIRECT_URI = "https://myapp-backend-lyx2.onrender.com/callback";
 
 app.get("/callback", async (req, res) => {
+  console.log("Callback hit");
+  console.log("Query:", req.query);
+
   const code = req.query.code;
+
+  console.log("Received code:", code);
+
+  if (!code) {
+    return res.send("No code received");
+  }
 
   try {
     const params = new URLSearchParams();
@@ -21,6 +30,13 @@ app.get("/callback", async (req, res) => {
     params.append("grant_type", "authorization_code");
     params.append("redirect_uri", REDIRECT_URI);
 
+    console.log("Exchanging code for token...",params.toString());
+    if (params.toString().length > 1000) {
+      console.log("Params too long, truncating for log");
+      console.log(params.toString().substring(0, 1000) + "...");
+    } else {
+      console.log(params.toString());
+    }
     const response = await axios.post(
       "https://api.upstox.com/v2/login/authorization/token",
       params,
