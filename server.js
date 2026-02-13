@@ -32,9 +32,17 @@ app.get("/callback", async (req, res) => {
     );
 
     const accessToken = response.data.access_token;
-
+  res.send(`
+  <html>
+    <body>
+      <script>
+        window.ReactNativeWebView.postMessage("${accessToken}");
+      </script>
+    </body>
+  </html>
+`);
     // Redirect back to mobile app with token
-    res.redirect(`myapp://callback?access_token=${accessToken}`);
+    // res.redirect(`myapp://callback?access_token=${accessToken}`);
 
   } catch (error) {
     console.log(error.response?.data);
